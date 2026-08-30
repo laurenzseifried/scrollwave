@@ -19,7 +19,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             quality = enumPreference("quality", Quality.AUTO),
             resumeMode = enumPreference("resume", ResumeMode.RESUME),
             error = if (BuildConfig.REDDIT_CLIENT_ID.isBlank()) {
-                "REDDIT_CLIENT_ID fehlt. Siehe README.md."
+                "REDDIT_CLIENT_ID fehlt – der Webmodus funktioniert trotzdem."
             } else null,
         ),
     )

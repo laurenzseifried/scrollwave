@@ -6,6 +6,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -106,26 +108,37 @@ fun ScrollwaveApp(viewModel: MainViewModel, onLogin: () -> Unit, onWebMode: () -
 
 @Composable
 private fun LoginScreen(state: UiState, onLogin: () -> Unit, onWebMode: () -> Unit) {
-    Box(
-        modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(28.dp),
-        contentAlignment = Alignment.Center,
+    val nativeLoginAvailable = !state.error.orEmpty().contains("CLIENT_ID")
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .windowInsetsPadding(WindowInsets.safeDrawing)
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 28.dp, vertical = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(18.dp, Alignment.CenterVertically),
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(18.dp)) {
-            Text("Scrollwave", fontSize = 34.sp, fontWeight = FontWeight.Bold)
-            Text("Deine Reddit-Medien als Fullscreen-Feed.", color = Color.LightGray)
+        Text("Scrollwave", fontSize = 34.sp, fontWeight = FontWeight.Bold)
+        Text("Deine Reddit-Medien als Fullscreen-Feed.", color = Color.LightGray)
+        if (nativeLoginAvailable) {
             state.error?.let { Text(it, color = Color(0xFFFF8A80)) }
-            Button(onClick = onLogin, enabled = !state.loading && !state.error.orEmpty().contains("CLIENT_ID")) {
+            Button(onClick = onLogin, enabled = !state.loading) {
                 Text("Mit Reddit verbinden")
             }
             Button(onClick = onWebMode) {
-                Text("Experimentellen Webmodus öffnen")
+                Text("Ohne API: Reddit-Webmodus öffnen")
             }
-            Text(
-                "Funktioniert ohne API-Freigabe und verwendet ausschließlich die sichtbare Reddit-Webseite.",
-                color = Color.Gray,
-                fontSize = 13.sp,
-            )
+        } else {
+            Button(onClick = onWebMode) {
+                Text("Ohne API: Reddit-Webmodus öffnen")
+            }
+            state.error?.let { Text(it, color = Color(0xFFFF8A80)) }
         }
+        Text(
+            "Funktioniert ohne API-Freigabe und verwendet ausschließlich die sichtbare Reddit-Webseite.",
+            color = Color.Gray,
+            fontSize = 13.sp,
+        )
     }
 }
 
