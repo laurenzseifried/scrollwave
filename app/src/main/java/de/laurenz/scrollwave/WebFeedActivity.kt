@@ -259,27 +259,41 @@ class WebFeedActivity : ComponentActivity() {
               };
               let activePost = null;
               const pausedByUser = new WeakSet();
-              const setActive = activePost => {
+              const managedVideos = new WeakSet();
+              const setVideoActive = (video, active) => {
+                video.loop = true;
+                if (active) {
+                  if (video.volume < 1) video.volume = 1;
+                  if (video.muted) video.muted = false;
+                  if (!pausedByUser.has(video) && video.paused) video.play().catch(() => {});
+                } else {
+                  if (!video.muted) video.muted = true;
+                  if (!video.paused) video.pause();
+                }
+              };
+              const setActive = nextPost => {
+                if (nextPost === activePost) return;
+                activePost = nextPost;
                 document.querySelectorAll(postSelector).forEach(post => {
-                  const active = post === activePost;
-                  videos(post).forEach(video => {
-                    video.loop = true;
-                    video.muted = !active;
-                    if (active && !pausedByUser.has(video)) video.play().catch(() => {}); else video.pause();
-                  });
+                  videos(post).forEach(video => setVideoActive(video, post === activePost));
                 });
               };
               const observer = new IntersectionObserver(entries => {
                 const active = entries.filter(e => e.isIntersecting && e.intersectionRatio >= 0.55)
                   .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
                 if (active) {
-                  activePost = active.target;
-                  setActive(activePost);
+                  setActive(active.target);
                 }
               }, { threshold: [0.55, 0.75, 0.95] });
               const observePosts = () => document.querySelectorAll(postSelector).forEach(post => {
                 post.dataset.scrollwaveMedia = isMediaPost(post) ? '1' : '0';
                 enhancePost(post);
+                videos(post).forEach(video => {
+                  if (!managedVideos.has(video)) {
+                    managedVideos.add(video);
+                    setVideoActive(video, post === activePost);
+                  }
+                });
                 if (!post.dataset.scrollwaveObserved) {
                   post.dataset.scrollwaveObserved = '1';
                   if (post.dataset.scrollwaveMedia === '1') observer.observe(post);
@@ -287,7 +301,6 @@ class WebFeedActivity : ComponentActivity() {
               });
               observePosts();
               new MutationObserver(observePosts).observe(document.body, { childList: true, subtree: true });
-              setInterval(() => { if (activePost) setActive(activePost); }, 750);
 
               let start = null;
               let touchStart = null;

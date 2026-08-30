@@ -17,5 +17,8 @@ class WebFeedActivityTest {
         assertTrue("['image', 'gallery', 'video', 'gif']" in WebFeedActivity.ENHANCEMENT_SCRIPT)
         assertTrue("scrollwave-meta" in WebFeedActivity.ENHANCEMENT_SCRIPT)
         assertTrue("pausedByUser" in WebFeedActivity.ENHANCEMENT_SCRIPT)
+        assertTrue("managedVideos" in WebFeedActivity.ENHANCEMENT_SCRIPT)
+        assertTrue("video.volume = 1" in WebFeedActivity.ENHANCEMENT_SCRIPT)
+        assertFalse("setInterval" in WebFeedActivity.ENHANCEMENT_SCRIPT)
     }
 }
