@@ -33,7 +33,7 @@ Die Debug-APK liegt danach unter `app/build/outputs/apk/debug/app-debug.apk`.
 ## Bedienung
 
 - Einmal mit Reddit verbinden und den reinen Lesezugriff erlauben.
-- Solange die Reddit-API-Freigabe fehlt, kann der experimentelle Webmodus direkt vom Login-Bildschirm geöffnet werden. Er lädt die normale Reddit-Webseite in einer lokalen WebView und ergänzt Fullscreen-Snapping sowie Ein-Video-Audio-Steuerung, ohne Reddit-Daten separat abzurufen oder zu speichern.
+- Solange die Reddit-API-Freigabe fehlt, kann der experimentelle Webmodus direkt vom Login-Bildschirm geöffnet werden. Sein Focus Mode formt die sichtbare Reddit-Webseite lokal in Fullscreen-Medienkarten mit Snapping, minimalen Metadaten und Ein-Video-Audio-Steuerung um, ohne Reddit-Daten separat abzurufen oder zu speichern. Über `Feeds` lässt sich die originale Reddit-Navigation vorübergehend einblenden.
 - Der WebView-Login ist technisch vom Login in Chrome oder der Reddit-App getrennt und muss deshalb einmal innerhalb dieses Modus erfolgen.
 - Eigenen Custom Feed oder ein abonniertes Subreddit auswählen.
 - Vertikal zum nächsten Beitrag, horizontal durch Galerien wischen.

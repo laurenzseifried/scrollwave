@@ -15,5 +15,7 @@ class WebFeedActivityTest {
         assertTrue("IntersectionObserver" in WebFeedActivity.ENHANCEMENT_SCRIPT)
         assertTrue("data-scrollwave-media" in WebFeedActivity.ENHANCEMENT_SCRIPT)
         assertTrue("['image', 'gallery', 'video', 'gif']" in WebFeedActivity.ENHANCEMENT_SCRIPT)
+        assertTrue("scrollwave-meta" in WebFeedActivity.ENHANCEMENT_SCRIPT)
+        assertTrue("pausedByUser" in WebFeedActivity.ENHANCEMENT_SCRIPT)
     }
 }
