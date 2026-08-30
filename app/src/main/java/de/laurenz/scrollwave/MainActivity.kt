@@ -26,6 +26,9 @@ class MainActivity : ComponentActivity() {
                         CustomTabsIntent.Builder().setShowTitle(false).build().launchUrl(this, uri)
                     }
                 },
+                onWebMode = {
+                    startActivity(Intent(this, WebFeedActivity::class.java))
+                },
             )
         }
         handleRedirect(intent)

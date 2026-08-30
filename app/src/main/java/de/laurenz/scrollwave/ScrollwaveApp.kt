@@ -83,7 +83,7 @@ import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 @Composable
-fun ScrollwaveApp(viewModel: MainViewModel, onLogin: () -> Unit) {
+fun ScrollwaveApp(viewModel: MainViewModel, onLogin: () -> Unit, onWebMode: () -> Unit) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     MaterialTheme(
         colorScheme = darkColorScheme(
@@ -95,7 +95,7 @@ fun ScrollwaveApp(viewModel: MainViewModel, onLogin: () -> Unit) {
     ) {
         Surface(modifier = Modifier.fillMaxSize(), color = Color.Black) {
             when (state.stage) {
-                AppStage.LOGIN -> LoginScreen(state, onLogin)
+                AppStage.LOGIN -> LoginScreen(state, onLogin, onWebMode)
                 AppStage.LOADING_SOURCES -> LoadingScreen("Reddit wird geladen …")
                 AppStage.SOURCES -> SourceScreen(state, viewModel::selectSource, viewModel::logout)
                 AppStage.FEED -> FeedScreen(state, viewModel)
@@ -105,7 +105,7 @@ fun ScrollwaveApp(viewModel: MainViewModel, onLogin: () -> Unit) {
 }
 
 @Composable
-private fun LoginScreen(state: UiState, onLogin: () -> Unit) {
+private fun LoginScreen(state: UiState, onLogin: () -> Unit, onWebMode: () -> Unit) {
     Box(
         modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(28.dp),
         contentAlignment = Alignment.Center,
@@ -117,6 +117,14 @@ private fun LoginScreen(state: UiState, onLogin: () -> Unit) {
             Button(onClick = onLogin, enabled = !state.loading && !state.error.orEmpty().contains("CLIENT_ID")) {
                 Text("Mit Reddit verbinden")
             }
+            Button(onClick = onWebMode) {
+                Text("Experimentellen Webmodus öffnen")
+            }
+            Text(
+                "Funktioniert ohne API-Freigabe und verwendet ausschließlich die sichtbare Reddit-Webseite.",
+                color = Color.Gray,
+                fontSize = 13.sp,
+            )
         }
     }
 }

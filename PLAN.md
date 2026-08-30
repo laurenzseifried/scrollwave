@@ -10,6 +10,8 @@ Eine persönliche native Android-App, die eigene Reddit-Custom-Feeds und abonnie
 - Unit-Tests, Android-Lint und Debug-APK-Build laufen erfolgreich.
 - Die APK wurde in einem Android-36-Emulator aus Android Studio installiert und bis zum OAuth-Einstieg getestet; Start, Portrait-Layout, deaktivierter Login ohne Client-ID und fehlerhafte OAuth-Callbacks verhalten sich stabil.
 - Die reale Reddit-Anmeldung sowie Feed-, Scroll-, Ton- und Seek-Tests mit echten Inhalten warten auf eine konfigurierte `REDDIT_CLIENT_ID` und den Login des Nutzers.
+- Der Reddit-Data-API-Antrag wurde am 30. August 2026 mit dem öffentlichen Quellcode eingereicht; die Freigabe steht noch aus.
+- Als Zwischenlösung ist ein experimenteller, rein lokaler Webmodus implementiert und ausgeloggt im Android-36-Emulator geprüft: Reddit selbst rendert und lädt die Seite; die App filtert auf Medienbeiträge und ergänzt Fullscreen-Snapping sowie die Steuerung sichtbarer HTML5-Videos. Reddit-Werbung bleibt gemäß Plattformregel sichtbar. Es gibt keinen Proxy und keine separate Datensammlung. Login und echte Feed-/Ton-Tests stehen noch aus.
 
 ## Festgelegter Umfang
 

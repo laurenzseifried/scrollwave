@@ -33,6 +33,8 @@ Die Debug-APK liegt danach unter `app/build/outputs/apk/debug/app-debug.apk`.
 ## Bedienung
 
 - Einmal mit Reddit verbinden und den reinen Lesezugriff erlauben.
+- Solange die Reddit-API-Freigabe fehlt, kann der experimentelle Webmodus direkt vom Login-Bildschirm geöffnet werden. Er lädt die normale Reddit-Webseite in einer lokalen WebView und ergänzt Fullscreen-Snapping sowie Ein-Video-Audio-Steuerung, ohne Reddit-Daten separat abzurufen oder zu speichern.
+- Der WebView-Login ist technisch vom Login in Chrome oder der Reddit-App getrennt und muss deshalb einmal innerhalb dieses Modus erfolgen.
 - Eigenen Custom Feed oder ein abonniertes Subreddit auswählen.
 - Vertikal zum nächsten Beitrag, horizontal durch Galerien wischen.
 - Tippen pausiert oder startet ein Video.
@@ -41,6 +43,8 @@ Die Debug-APK liegt danach unter `app/build/outputs/apk/debug/app-debug.apk`.
 
 ## Bewusste V1-Grenzen
 
+- Der Webmodus filtert Reddits HTML auf Bild-, Galerie-, GIF- und Videobeiträge. Er hängt von Reddits aktuellem HTML ab; Reddit-Änderungen oder eingebettete Cross-Origin-Player können Snapping beziehungsweise automatische Tonsteuerung beeinträchtigen.
+- Beworbene Reddit-Beiträge werden nicht ausgeblendet, weil Reddits Plattformregeln das für Apps ausdrücklich untersagen.
 - Unterstützt werden Reddit-Bilder/-Galerien/-Videos, Redgifs und direkte Medienlinks.
 - Eingebettete Webseiten wie YouTube, Vimeo oder Streamable werden übersprungen.
 - Höchstens fünf Reddit-Seiten werden pro Feed-Lauf nach passenden Medien durchsucht.
