@@ -132,7 +132,6 @@ private fun LoginScreen(state: UiState, onLogin: () -> Unit, onWebMode: () -> Un
             Button(onClick = onWebMode) {
                 Text("Ohne API: Reddit-Webmodus öffnen")
             }
-            state.error?.let { Text(it, color = Color(0xFFFF8A80)) }
         }
         Text(
             "Funktioniert ohne API-Freigabe und verwendet ausschließlich die sichtbare Reddit-Webseite.",
